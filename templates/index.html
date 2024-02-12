@@ -1,0 +1,29 @@
+{% extends "base.html" %}       <!--base.html을 템플릿으로 사용함-->
+
+{% block content %}             <!--안에 들어갈 내용-->
+<div style="margin:50px auto; width:auto;">
+    <div class="title_box"><a href="/">Yoon's 게시판</a></div>
+    <div style="text-align: right;">
+        <input type="button" value="글쓰기" onclick="GoToWrite()" >
+        <input type="button" value="삭제" onclick="GoToDelete()">
+    </div>
+</div>
+
+<table class="list" border="0" align="center" cellpadding="0" style="width: 100%;">
+    <colgroup>                                                                                                  <!--2번째 열까지 배경색을 빨간색으로 바꾸기-->
+        <col width="5%">                                                                                        <!--첫 번째 열 넓이: 5% -->                                                                                 
+        <col width="50%">                                                                                       <!--두 번째 열 넓이: 50%-->
+    </colgroup>
+    <tr>                                                                                                        <!--<tr>은 table row 설정!!-->
+        <th>번호</th>                                                                                            <!--<th>는 table header-->
+        <th>제목</th>
+        <th>등록날짜</th>
+    </tr>
+    <tr>
+        <td>1</td>                                                                                              <!--<td>는 table data-->
+        <td>안녕하세요!</td>
+        <td>2024 / 02 / 11</td>
+    </tr>
+</table>
+{% endblock %}
+
