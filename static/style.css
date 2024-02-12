@@ -26,3 +26,7 @@
 .list tr:nth-child(even) {
     background-color: lightgoldenrodyellow;
 }
+
+h1 {
+    text-align: center;
+}
