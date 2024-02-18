@@ -1,30 +1,58 @@
 from fastapi import FastAPI, Request
-from starlette.templating import Jinja2Templates                                                # 템플릿 사용 가능 모듈
-from starlette.staticfiles import StaticFiles
-from pydantic import BaseModel                                                   # static file 사용 가능하게 하는 모듈
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
+from typing import List
+from starlette.middleware.cors import CORSMiddleware
+
+from db import session
+from models import DBTable, Data
+
+templates = Jinja2Templates(directory="templates")
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")                                              # 템플릿 사용 가능하게 함 
-app.mount("/static", StaticFiles(directory="static"), name="static")                            # static 디렉토리에 있는 파일을 사용 가능하게 함
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# 글쓰기 후 서버로 전송된 모델
-class Post(BaseModel):
-    tilte: str
-    content: str
-    date: str
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],                                                                            # 모든 도메인에서의 요청 허용
+    allow_credentials=True,                                                                         # 인증 정보를 포함한 요청 허용
+    allow_methods=["*"],                                                                            # 모든 HTTP methods 허용
+    allow_headers=["*"],                                                                            # 모든 HTTP headers 허용
+)
 
-@app.get("/")
-async def read_root(request: Request):                                                          # templates 디렉토리에 있는 index.html 템플릿을 렌더링 후 request 객체를 템플릿에 전달하여 요청에 대한 정보를 템플릿에서 사용 가능
-    return templates.TemplateResponse("index.html", {"request": request})
+# INDEX
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    context= {}
+    data = session.query(DBTable).all()
 
-# 글쓰기를 위한 페이지 보여주기
-@app.get("/write/")
-async def get_write(request: Request):
-    return templates.TemplateResponse("write.html", {"request": request})
+    context["request"]  = request
+    context["data"]     = data
 
-# 글쓰기를 위한 정보 보내주기
-@app.post("/write/")
-async def post_write(post:Post):
-    print("hello")
+    return templates.TemplateResponse("index.html", context)
+
+# READ
+@app.get("/{index}", response_class=HTMLResponse)
+async def index(request: Request, index: int):
+    context= {}
+    data = session.query(DBTable).filter(DBTable.id == index).first()
+
+    context["request"]  = request
+    context["title"]    = data.title
+    context["time"]     = data.time
+    context["contents"] = data.contents
+
+    return templates.TemplateResponse("read.html", context)
+
+# CREATE
+    
 
 
+# UPDATE
+    
+
+
+
+# DELETE
