@@ -12,7 +12,5 @@ class DBTable(Base):
     contents    = Column(TEXT, nullable=True)
 
 class Data(BaseModel):
-    id      : int
     title   : str
-    time    : str
     contents: str

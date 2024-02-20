@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
@@ -27,5 +27,12 @@ session = scoped_session(
         bind=ENGINE,
     )
 )
+
+
+
+# def execute_query(query):                                                                       # 쿼리 실행 함수
+#     with ENGINE.connect() as connection:                                                        # with: 특정 작업 수행 전 리소스를 할당하고 작업이 끝난 후에는 리소스를 자동으로 정리(쿼리 실행 후 연결을 자동으로 닫기 위해), as: 앞에 있는 객체를 변수 connect에 할당시킴 
+#         result = connection.excute(text(query))
+#         return result.fetchall()                                                                # fetchall(): 결과 실행 후 결과에 해당하는 모든 행 불러옴
 
 Base = declarative_base()

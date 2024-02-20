@@ -4,5 +4,30 @@
 <div style="margin:50px auto; width:auto;">
     <div class="title_box"><a href="/">Yoon's 게시판</a></div>
 </div>
-<h1>게시판 글쓰기</h1>
+<div class="container">
+   
+    <div class="row">
+      <div class="col-25">
+        <label for="title">제목</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="title" name="title" placeholder="제목 입력">
+      </div>
+    </div>
+   
+    <div class="row">
+      <div class="col-25">
+        <label for="contents">내용</label>
+      </div>
+      <div class="col-75">
+        <textarea id="contents" name="contents" placeholder="내용 입력" style="height:200px"></textarea>
+      </div>
+    </div>
+
+    <br>
+    <div class="row">
+      <input type="submit" value="Submit" onclick="postData()">
+    </div>
+    </form>
+  </div>
 {% endblock %}
