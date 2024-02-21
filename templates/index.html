@@ -5,7 +5,7 @@
     <div class="title_box"><a href="/">Yoon's 게시판</a></div>
     <div style="text-align: right;">
         <input type="button" value="글쓰기" onclick="window.location.href='/write'">
-        <input type="button" value="삭제" onclick="window.location.href='/delete'">
+      
     </div>
 </div>
 
@@ -20,16 +20,12 @@
         <th>등록시간</th>
     </tr>
     {% if data %}
-    {% set index = 0 %}
-    
         {% for dt in data %}                                                                                    <!--한 행씩 실행-->
             <tr id="databox_{{dt.id}}">
-                {% set index = index + 1 %}
-                <td>{{index}}</td>                                                                              <!--** index 안늘어남 **-->
-                <td><a href="/read">{{dt.title}}</a></td>
+                <td>{{loop.index}}</td>                                                                              <!--** index 안늘어남 **-->
+                <td><a href="/index/{{dt.id}}">{{dt.title}}</a></td>
                 <td>{{dt.time}}</td>
             </tr>
-            
         {% endfor %}
     {% endif %}
 </table>

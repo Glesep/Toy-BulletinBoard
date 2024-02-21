@@ -1,0 +1,52 @@
+{% extends "base.html" %} 
+
+{% block content %} 
+<script>
+    const path= window.location.pathname;
+    const pathParts = path.split('/')
+    var parameter = pathParts[2]
+    var parmeter_int = parseInt(parameter)
+</script>
+
+<div style="margin:50px auto; width:auto;">
+    <div class="title_box"><a href="/">Yoon's 게시판</a></div>
+</div>
+
+<div>
+    <div class="container">
+   
+        <div class="row">
+          <div class="col-25">
+            <label for="title">제목</label>
+          </div>
+          <div class="col-75">
+            {{title}}
+          </div>
+        </div>
+       
+        <div class="row">
+          <div class="col-25">
+            <label for="contents">내용</label>
+          </div>
+          <div class="col-75">
+            {{contents}}
+          </div>
+        </div>
+    
+        <div class="row">
+          <input type="submit"  id="delete" value="삭제" onclick="deleteData(parmeter_int)">
+          <input type="submit" class="submit-btn" id="update" value="수정" onclick="window.location.href='/update/'+(parmeter_int)">
+          
+        </div>
+        
+    </div>
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

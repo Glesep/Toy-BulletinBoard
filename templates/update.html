@@ -1,1 +1,40 @@
-<h1>UPDATE PAGE</h1>
+{% extends "base.html" %}
+
+{% block content %}
+<script>
+  const path= window.location.pathname;
+  const pathParts = path.split('/')
+  var parameter = pathParts[2]
+  var parmeter_int = parseInt(parameter)
+</script>
+
+
+<div style="margin:50px auto; width:auto;">
+    <div class="title_box"><a href="/">Yoon's 게시판</a></div>
+</div>
+<div class="container">
+   
+    <div class="row">
+      <div class="col-25">
+        <label for="title">제목</label>
+      </div>
+      <div class="col-75">
+        <input type="text" id="title" name="title" placeholder="제목 입력" value="{{title}}">
+      </div>
+    </div>
+   
+    <div class="row">
+      <div class="col-25">
+        <label for="contents">내용</label>
+      </div>
+      <div class="col-75">
+        <textarea id="contents" name="contents" placeholder="내용 입력" style="height:200px" value="{{contents}}"></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <input type="submit" class="submit-btn" value="Submit" onclick="putData(parmeter_int)">
+    </div>
+    
+</div>
+{% endblock %}

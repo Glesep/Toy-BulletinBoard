@@ -30,7 +30,7 @@ app.add_middleware(
 async def do_redirect():
     return RedirectResponse(url="/index")
 
-# INDEX
+# INDEX 완성!
 @app.get("/index", response_class=HTMLResponse)
 async def index(request: Request):
     context= {}
@@ -41,7 +41,7 @@ async def index(request: Request):
 
     return templates.TemplateResponse("index.html", context)
 
-# READ
+# READ 완성!
 @app.get("/index/{index}", response_class=HTMLResponse)
 async def index(request: Request, index: int):
     context= {}
@@ -60,15 +60,15 @@ async def write(request: Request):                                              
     context={}
     context["request"] = request                                                                    # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
 
-    query_makerow = "INSERT INTO bb (id, title, time, contents) VALUES ()"
+   
     return templates.TemplateResponse("write.html", context)
 
 @app.post("/write")
 async def create_data(data: Data):
     datalist = list(data)
 
-    d_title = datalist[0][1]
-    d_contents = datalist[1][1]
+    d_title = datalist[1][1]
+    d_contents = datalist[2][1]
     d_time = datetime.datetime.now()
 
     data = DBTable()
@@ -82,17 +82,41 @@ async def create_data(data: Data):
     return "게시글이 저장되었습니다."
 
 
-# UPDATE
-@app.get("/update", response_class=HTMLResponse)
-async def update(request: Request):                                                                  # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
-    context={}
-    context["request"] = request                                                                    # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
+# UPDATE 완성!
+@app.get("/update/{index}", response_class=HTMLResponse)
+async def update(request: Request, index: int):                                                                  # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
+    context= {}
+    data = session.query(DBTable).filter(DBTable.id == index).first()
+
+    context["request"]  = request                                                                   # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
+    context["title"]    = data.title
+    context["time"]     = data.time
+    context["contents"] = data.contents
+
     return templates.TemplateResponse("update.html", context)
+
+@app.put("/update/{index}")
+async def update_data(data: Data, index: int):
+    datalist = list(data)
+    d_title = datalist[0][1]
+    d_contents = datalist[1][1]
+    d_time = datetime.datetime.now()
+
+    data = session.query(DBTable).filter(DBTable.id == index).first()
+    data.title = d_title
+    data.contents = d_contents
+    data.time = d_time
+
+    session.commit()
+
+    return "게시글이 수정되었습니다."
+    # data = session.query(DBTable).filter(DBTable.id == )
 
 
 # DELETE
-@app.get("/delete", response_class=HTMLResponse)
-async def update(request: Request):                                                                  # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
-    context={}
-    context["request"] = request                                                                    # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
-    return templates.TemplateResponse("delete.html", context)
+@app.delete("/delete/{index}")
+async def delete_data(data: Data, index: int):                                                                  # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
+   
+    session.query(DBTable).filter(DBTable.id == index).delete()
+    session.commit()                                                                                            # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
+    

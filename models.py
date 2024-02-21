@@ -12,5 +12,6 @@ class DBTable(Base):
     contents    = Column(TEXT, nullable=True)
 
 class Data(BaseModel):
+    
     title   : str
     contents: str
