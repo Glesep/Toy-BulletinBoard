@@ -65,19 +65,19 @@ async def write(request: Request):                                              
 
 @app.post("/write")
 async def create_data(data: Data):
-    datalist = list(data)
+    datalist = list(data)                                                                           # pydantic 모델을 변수에 저장
 
-    d_title = datalist[1][1]
-    d_contents = datalist[2][1]
+    d_title = datalist[0][1]
+    d_contents = datalist[1][1]
     d_time = datetime.datetime.now()
 
-    data = DBTable()
+    data = DBTable()                                                                                # DBTable(): DBTable 객체 생성
     data.title = d_title
     data.contents = d_contents
     data.time = d_time
 
-    session.add(data)
-    session.commit()
+    session.add(data)                                                                               # 세션에 ORM을 저장
+    session.commit()                                                                                # 세션 commit함으로써 DB에 ORM 반영
 
     return "게시글이 저장되었습니다."
 
@@ -110,7 +110,7 @@ async def update_data(data: Data, index: int):
     session.commit()
 
     return "게시글이 수정되었습니다."
-    # data = session.query(DBTable).filter(DBTable.id == )
+   
 
 
 # DELETE
