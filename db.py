@@ -16,7 +16,6 @@ DATABASE = "mysql+pymysql://%s:%s@%s/%s?charset=utf8" % (                       
 
 ENGINE = create_engine(
     DATABASE,
-    encoding="utf-8",
     echo=True,
 )
 
