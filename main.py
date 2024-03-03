@@ -84,11 +84,11 @@ async def create_data(data: Data):
 
 # UPDATE 완성!
 @app.get("/update/{index}", response_class=HTMLResponse)
-async def update(request: Request, index: int):                                                                  # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
+async def update(request: Request, index: int):                                                                 # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
     context= {}
     data = session.query(DBTable).filter(DBTable.id == index).first()
 
-    context["request"]  = request                                                                   # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
+    context["request"]  = request                                                                               # 템플릿에서 request 객체를 받아와 요청에 대한 정보를 다루게 함
     context["title"]    = data.title
     context["time"]     = data.time
     context["contents"] = data.contents

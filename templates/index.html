@@ -1,6 +1,6 @@
-{% extends "base.html" %}       <!--base.html을 템플릿으로 사용함-->
+{% extends "base.html" %}                                                                                       <!--base.html을 템플릿으로 사용함-->
 
-{% block content %}             <!--안에 들어갈 내용-->
+{% block content %}                                                                                             <!--안에 들어갈 내용-->
 <div style="margin:50px auto; width:auto;">
     <div class="title_box"><a href="/">Yoon's 게시판</a></div>
     <div style="text-align: right;">
@@ -22,7 +22,7 @@
     {% if data %}
         {% for dt in data %}                                                                                    <!--한 행씩 실행-->
             <tr id="databox_{{dt.id}}">
-                <td>{{loop.index}}</td>                                                                              <!--** index 안늘어남 **-->
+                <td>{{loop.index}}</td>                                                                         <!--loop.index: 현재 반복이 몇 번째인지 알려줌-->                                                                      
                 <td><a href="/index/{{dt.id}}">{{dt.title}}</a></td>
                 <td>{{dt.time}}</td>
             </tr>
