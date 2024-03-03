@@ -6,7 +6,7 @@ from fastapi.templating import Jinja2Templates
 from typing import List
 from starlette.middleware.cors import CORSMiddleware
 
-from db import session #, execute_query
+from db import session 
 from models import DBTable, Data
 
 import datetime
@@ -24,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],                                                                            # 모든 HTTP headers 허용
 )
 
-# cursor = session.cursor()                                                                           # 커서는 세션이랑 연결, 커서 이용해서 sql의 쿼리 실행 가능
+
 
 @app.get("/")
 async def do_redirect():
